@@ -1,0 +1,131 @@
+
+  <div class="dialpad-box" cdkDrag>
+
+    <div class="dialpad-handle" cdkDragHandle>
+      <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+        <path d="M0 0h24v24H0z" fill="none"></path>        
+      </svg>
+      <button mat-icon-button style="color: #888b91; left: -260px; margin-top: 0px; position: absolute;" (click)="glob.showDialpad=false"> <mat-icon>close</mat-icon> </button>  
+      <span style="font-size: 20px; font-weight: bold; color: #344d7e; left: -200px; position: absolute;">Dialpad</span>
+    </div>
+
+    <form [formGroup]="dialpadForm">
+      <div class="phone">
+
+          <mat-form-field class="cls-cont-phone-number">
+            <input matInput
+            class="cls-phone-number"  
+            name="phoneNumber" 
+            minlength="4" 
+            maxlength=11 
+            (keypress)="keyPress($event)" 
+            (change)="changeCallNumber()"
+            pattern="[0-9]*"
+            inputmode="numeric"
+            formControlName="phoneNumber"
+            >
+            <mat-icon matSuffix class="cls-btn-bck-space" (click)="backSpacePhoneNumber()" [hidden]="!showBkSpce">backspace</mat-icon>
+          </mat-form-field>
+
+
+          <table class="table">
+            <tr>
+              <td>
+                <button class="btn cls-btn-dial-pad" (click)="getTone('1')">1</button>
+              </td>
+              <td>
+                <button class="btn cls-btn-dial-pad" (click)="getTone('2')" >2
+                  <span class="cls-letters">ABC</span>
+                </button>
+              </td>
+              <td>
+                <button class="btn cls-btn-dial-pad" (click)="getTone('3')" >3
+                    <span class="cls-letters">DEF</span>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <button class="btn cls-btn-dial-pad" (click)="getTone('4')" >4
+                    <span class="cls-letters">GHI</span>
+                </button>
+              </td>
+              <td>
+                <button class="btn cls-btn-dial-pad" (click)="getTone('5')" >5
+                    <span class="cls-letters">JKL</span>
+                </button>
+              </td>
+              <td>
+                <button class="btn cls-btn-dial-pad" (click)="getTone('6')" >6
+                    <span class="cls-letters">MNO</span>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <button class="btn cls-btn-dial-pad" (click)="getTone('7')" >7
+                    <span class="cls-letters">PQRS</span>
+                </button>
+              </td>
+              <td>
+                <button class="btn cls-btn-dial-pad" (click)="getTone('8')" >8
+                    <span class="cls-letters">TUV</span>
+                </button>
+              </td>
+              <td>
+                <button class="btn cls-btn-dial-pad" (click)="getTone('9')" >9
+                    <span class="cls-letters">WXYZ</span>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <button class="btn cls-btn-dial-pad" (click)="getTone('*')" >*</button>
+              </td>
+              <td>
+                <button class="btn cls-btn-dial-pad" (click)="getTone('0')" >0</button>
+              </td>
+              <td>
+                <button class="btn cls-btn-dial-pad" (click)="getTone('#')" >#</button>
+              </td>
+            </tr>
+              
+          </table>
+
+
+          <div class="cls-cmd-btns">
+            <button mat-icon-button style="color: #23BE28;" type="button" [disabled]="!dialpadForm.valid || glob.onCall" (click)="makeCall('audio')"
+                    #tooltip="matTooltip"
+                    matTooltip="Make Call"
+                    matTooltipPosition="above"
+                    matTooltipHideDelay="100"
+            >
+              <mat-icon>phone</mat-icon> 
+            </button>
+
+            <button mat-icon-button style="color: #CE3954;" type="button" [hidden]="!glob.showOutgoingcall" (click)="hangupCall()"
+                    #tooltip="matTooltip"
+                    matTooltip="Cancel Call"
+                    matTooltipPosition="above"
+                    matTooltipHideDelay="100"
+            > 
+              <mat-icon>call_end</mat-icon> 
+            </button>
+
+            <button mat-icon-button style="color: #005cb7;" type="button" [disabled]="!dialpadForm.valid"  (click)="makeCall('video')"
+                    #tooltip="matTooltip"
+                    matTooltip="Start Videochat"
+                    matTooltipPosition="above"
+                    matTooltipHideDelay="100"
+            > 
+              <mat-icon>videocam</mat-icon> 
+            </button>
+          </div>
+
+      </div>
+    </form>
+  </div>

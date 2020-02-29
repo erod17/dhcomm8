@@ -1,0 +1,226 @@
+<mat-sidenav-container class="sidenav-container">
+
+  <mat-sidenav #contacts class="sidenav"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      mode = "over"
+      opened = "false"
+      hasBackdrop = "false">
+
+
+
+
+    <mat-toolbar style="height: 150px; padding: 10px; ">
+      <app-user-profile style="width: 100%; margin-top: -60px !important; display: inline;"></app-user-profile>
+      
+    </mat-toolbar>
+
+
+
+    
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              
+              <mat-panel-title>
+
+                
+
+              </mat-panel-title>
+
+              <mat-panel-description>
+                
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+        
+            
+            <!-- <button mat-button [matMenuTriggerFor]="menu">Call</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item></button>
+              <button mat-menu-item></button>
+              <mat-divider></mat-divider>
+              <button mat-menu-item></button>
+            </mat-menu>
+            
+            <button mat-button>Messages</button>
+            <button mat-button>CDR</button>
+            <button mat-button>Info</button> -->
+
+          </mat-expansion-panel>
+        
+    </mat-accordion>
+
+
+
+  </mat-sidenav>
+
+
+
+
+
+
+
+  <mat-sidenav-content>
+
+    <mat-toolbar *ngIf="!glob.userIn">
+        <span class="cls-logo">DHcomm</span>
+    </mat-toolbar>
+
+    <mat-toolbar *ngIf="glob.userIn">
+      
+      <span class="cls-logo">DHcomm</span>
+
+        <a mat-list-item style="color: rgb(40, 43, 206); font-size: 40px;" (click)="contacts.toggle();" [hidden]="!glob.globXSmallDevices && !glob.globSmallDevices &&  !glob.globMediumDevices">
+          <mat-icon>menu</mat-icon> 
+        </a>
+
+        <div [hidden]="glob.globXSmallDevices || glob.globSmallDevices || glob.globMediumDevices">
+          <a mat-list-item >Messages</a>
+          <a mat-list-item >Rooms</a>
+          <a mat-list-item >Cloud</a>
+          <a mat-list-item [matMenuTriggerFor]="adminMenu" >Admin</a>
+            <mat-menu #adminMenu="matMenu">
+              <button mat-menu-item>
+                <mat-icon>person_add</mat-icon>
+                Add Users
+              </button>
+              
+              <mat-divider></mat-divider>
+              
+              <button mat-menu-item (click)="openBottomSheet()">
+                <mat-icon>headset_mic</mat-icon>
+                Call Centers
+              </button>
+
+              <button mat-menu-item>
+                <mat-icon>phone_in_talk</mat-icon>
+                Active Calls
+              </button>
+              
+              <button mat-menu-item>
+                  <mat-icon>format_list_numbered</mat-icon>
+                Call Detail Record
+              </button>
+
+              <!-- <button mat-menu-item>
+                Add Contact
+              </button> -->
+              
+              <mat-divider></mat-divider>
+              
+              <button mat-menu-item
+                routerLink="/org-structure"
+              >
+                <mat-icon>business</mat-icon>
+                Organizational Structure
+              </button>
+            </mat-menu>
+          </div>
+
+          <!-- value="{{ glob.outgoingNumber }}" -->
+          <form [formGroup]="callerForm" [hidden]="glob.globXSmallDevices || glob.globSmallDevices">
+            <mat-form-field class="cls-cont-phone-number">
+              <input matInput
+                    class="cls-phone-number" 
+                    name="phoneNumber" 
+                    minlength="4" 
+                    maxlength=11 
+                    (keypress)="keyPress($event)" 
+                    (change)="changeCallNumber()"
+                    pattern="[0-9]*"
+                    inputmode="numeric"
+                    formControlName="phoneNumber"
+              >
+                    <mat-icon matSuffix class="cls-btn-bck-space" (click)="backSpacePhoneNumber()" [hidden]="!showBkSpce">backspace</mat-icon>
+                    
+            </mat-form-field>
+
+            
+            <button mat-icon-button style="color: #23BE28;" type="button" [disabled]="!callerForm.valid || glob.onCall" (click)="makeCall('audio')"
+                    #tooltip="matTooltip"
+                    matTooltip="Make Call"
+                    matTooltipPosition="below"
+                    matTooltipHideDelay="100"
+            >
+              <mat-icon>phone</mat-icon> 
+            </button>
+
+            <button mat-icon-button style="color: #005cb7;" type="button" [disabled]="!callerForm.valid" (click)="makeCall('video')"
+                    #tooltip="matTooltip"
+                    [matTooltip]="glob.globVideoStatus"
+                    matTooltipPosition="below"
+                    matTooltipHideDelay="100"
+            >
+            <mat-icon [hidden]="glob.globVideoChat">videocam</mat-icon> 
+            <mat-icon [hidden]="!glob.globVideoChat">videocam_off</mat-icon>
+            </button>
+
+            
+
+            <!-- button mat-icon-button style="color: #FA8F2F;" type="button" (click)="answerCall()"> <mat-icon>ring_volume</mat-icon> </button -->
+            
+            <button mat-icon-button style="color: #CE3954;" type="button" (click)="hangupCall()" [hidden]="!glob.showOutgoingcall && !glob.onCall"
+                    #tooltip="matTooltip"
+                    matTooltip="Hangup"
+                    matTooltipPosition="below"
+                    matTooltipHideDelay="100"            
+            > 
+              <mat-icon>call_end</mat-icon> 
+            </button>
+
+            <button mat-icon-button style="color: #141414;" type="button" (click)="switchDialpad()"
+                    #tooltip="matTooltip"
+                    matTooltip="Show Dialpad"
+                    matTooltipPosition="below"
+                    matTooltipHideDelay="100"
+            > 
+              <mat-icon>dialpad</mat-icon> 
+            </button>
+
+            <!-- button mat-icon-button style="color: #005cb7;" type="button" (click)="switchVideocall()"> <mat-icon>videocam</mat-icon> </button -->
+            <button mat-icon-button style="color: #930000;" type="button" (click)="switchUsercontacts()"
+                    #tooltip="matTooltip"
+                    matTooltip="Users List"
+                    matTooltipPosition="below"
+                    matTooltipHideDelay="100"
+            > 
+              <mat-icon>group</mat-icon> 
+            </button>
+          
+          </form>
+          
+
+      <span class="spacer"></span>
+
+      <div [hidden]="glob.globXSmallDevices || glob.globSmallDevices || glob.globMediumDevices">
+        <app-user-profile></app-user-profile>
+
+      </div>
+
+    </mat-toolbar>
+    <!-- Add Content Here -->
+
+
+    
+
+    <app-incoming-call [hidden]="!glob.showIncomingcall"></app-incoming-call>
+    <app-on-call [hidden]="!glob.showOncall"></app-on-call>
+    <app-outgoing-call [hidden]="!glob.showOutgoingcall"></app-outgoing-call>
+    <app-video-call [hidden]="!glob.globVideoChat"></app-video-call>
+    <!-- app-video-call [hidden]="!glob.globVideoChat"></app-video-call -->
+    <app-dialpad [hidden]="!glob.showDialpad"></app-dialpad>
+    <app-user-contacts [hidden]="!glob.showUsercontacts"></app-user-contacts>
+
+
+    <router-outlet></router-outlet>
+
+
+
+
+
+  </mat-sidenav-content>
+
+
+
+
+
+</mat-sidenav-container>

@@ -1,0 +1,68 @@
+<div class="cls-caller-btns">
+    <button mat-icon-button style="color: #141414;" (click)="switchDialpad()"
+            #tooltip="matTooltip"
+            matTooltip="Show Dialpad"
+            matTooltipPosition="above"
+            matTooltipHideDelay="100"
+            id="btnDialpad"
+            [hidden]="glob.globVideoChat"
+    > 
+      <mat-icon>dialpad</mat-icon> 
+    </button>
+
+    <button mat-icon-button style="color: #CE3954;" (click)="hangupCall()"
+            #tooltip="matTooltip"
+            matTooltip="Hangup"
+            matTooltipPosition="above"
+            matTooltipHideDelay="100"
+            id="btnHangup"
+    > 
+      <mat-icon>call_end</mat-icon> 
+    </button>
+
+    <button mat-icon-button style="color:	#005cb7;" (click)="setVideoChat()"
+            #tooltip="matTooltip"
+            [matTooltip]="glob.globVideoStatus"
+            matTooltipPosition="above"
+            matTooltipHideDelay="100"
+            id="btnVideo"
+    > 
+      <mat-icon [hidden]="glob.globVideoChat">videocam</mat-icon> 
+      <mat-icon [hidden]="!glob.globVideoChat">videocam_off</mat-icon> 
+    </button>
+
+    <button mat-icon-button style="color:#272322;" (click)="setMute()"
+            #tooltip="matTooltip"
+            [matTooltip]="glob.globCallHoldStatus"
+            matTooltipPosition="above"
+            matTooltipHideDelay="100"
+            id="btnMute"
+            [hidden]="glob.globVideoChat"
+    > 
+      <mat-icon [hidden]="glob.globHoldCall">mic_off</mat-icon>
+      <mat-icon [hidden]="!glob.globHoldCall">mic</mat-icon>
+    </button>
+
+    <button mat-icon-button style="color:#ff4500;" (click)="setHold()"
+            #tooltip="matTooltip"
+            [matTooltip]="glob.globCallHoldStatus"
+            matTooltipPosition="above"
+            matTooltipHideDelay="100"
+            id="btnHold"
+            [hidden]="glob.globVideoChat"
+    > 
+      <mat-icon [hidden]="glob.globHoldCall">phone_paused</mat-icon>
+      <mat-icon [hidden]="!glob.globHoldCall">phone_enabled</mat-icon>
+    </button>
+
+    <!-- button mat-icon-button style="color:	#b8860b;" (click)="transferCall()"
+            #tooltip="matTooltip"
+            matTooltip="Transfer Call"
+            matTooltipPosition="above"
+            matTooltipHideDelay="100"
+            id="btnTransfer"
+    > 
+      <mat-icon>phone_forwarded</mat-icon>
+    </button -->
+    
+</div>

@@ -1,0 +1,131 @@
+form button {
+  background-color: #e6e6e6;
+  margin-left: 10px;
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 80%;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.mat-toolbar {
+  background-color: #F9F9F9;
+  color: #A9ABB1;
+  border-bottom: #eeeeee 1px solid ;
+}
+
+.cls-form-usr-profile {
+  float: right !important;
+  left: 0 !important;
+}
+
+.cls-btn-user-menu {
+  border: none;
+  background-color: transparent;
+}
+
+.cls-btn-user-menu:focus {
+  outline: none;
+}
+
+.cls-logo {
+  font-size: 35px;
+  font-weight: bold;
+  margin: 0 30px;
+  
+}
+
+
+.mat-toolbar a {
+  display: inline-block;
+  margin: 0 10px;
+  cursor: pointer;
+  
+  text-decoration: none;
+}
+
+.cls-cont-phone-number {
+  margin-left: 50px;
+  width: 250px;
+}
+
+.cls-phone-number {
+  font-weight: bold;
+  text-align: center;
+  font-size: 25px;
+  width: 100% !important;
+}
+
+.mat-expansion-panel-header {
+   height: 70px !important;
+}
+.cls-btn-bck-space {
+  font-size: 20px;
+  color: black;
+  cursor: pointer;
+}
+
+
+
+
+
+/**************** M E D I A S   Q U E R I E S  ******************/
+/**************** X - S M A L L ****************/   
+@media screen and (max-width: 599px) {
+
+  .sidenav {
+    display: block;
+    width: 80%;
+  }
+
+}
+
+/**************** S M A L L ****************/
+@media screen and (min-width: 600px) and (max-width: 959px) {
+  .sidenav {
+    
+    width: 80%;
+  }
+}
+
+/**************** M E D I U M ****************/
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+  .sidenav {
+    
+    width: 50%;
+  }
+}
+
+/**************** L A R G E ****************/
+@media screen and (min-width: 1280px) and (max-width: 1919px) {
+  
+  .sidenav {
+    width: 30%;
+  }
+}
+
+/**************** X - L A R G E ****************/
+@media screen and (min-width: 1920px) {
+
+  .sidenav {
+    width: 25%;
+  }
+
+  
+
+}
+
+

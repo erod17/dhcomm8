@@ -1,0 +1,47 @@
+<div class="container h-100">
+  <div class="row h-100 justify-content-center align-items-center" style="margin-top: 25px !important;">
+    <div style="width: 450px !important; border: 1px solid rgb(192, 183, 183); padding: 25px;">
+
+      <div class="text-center mb-4">
+          <div>
+              <p class="h5 mb-5 font-weight-normal" style="color:lightslategrey;">
+                Please set up your password
+              </p>
+          </div>
+      </div>
+      
+    
+      <div>
+          <ngb-alert class="alert-login-user" *ngIf="showSuccess" (close)="activateAlertClosed = true">
+              <strong>Success,</strong> {{activateMsg}}
+              <br>
+              <button type="button" class="btn btn-lg btn-primary btn-block"  (click)="navToLogin()">Acept</button>
+              <!-- button type="button" class="float-right btn btn-outline-danger btn-sm" (click)="logout()">Logout</button -->
+          </ngb-alert>
+      </div>
+
+      <form [formGroup]="activateForm" (ngSubmit)="onSubmit()" *ngIf="!showSuccess">
+       
+        <div>
+            <ngb-alert class="alert-login-user" *ngIf="showError" (close)="activateAlertClosed = true">
+                <strong>Error,</strong> {{activateMsg}}
+            </ngb-alert>
+        </div>
+
+        <div class="form-label-group">
+          <strong for="inputPassword">Enter password</strong>
+          <input type="password" class="form-control" name="password" formControlName="password" placeholder="Password" autofocus>
+        </div>
+        <br>
+        <div class="form-label-group">
+          <strong for="inputPassword">Reenter password</strong>
+          <input type="password" class="form-control" name="confirm" formControlName="confirm" placeholder="Confirm">
+        </div>
+        <br>
+        
+        <button class="btn btn-lg btn-outline-primary btn-block" type="submit" [disabled]="!activateForm.valid">Activate</button>
+        
+      </form>
+    </div>
+  </div>
+</div>

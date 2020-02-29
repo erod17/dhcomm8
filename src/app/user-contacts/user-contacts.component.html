@@ -1,0 +1,123 @@
+<div class="user-contacts-box" cdkDrag>
+  
+    <div class="user-contacts-handle" cdkDragHandle>
+      
+      <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+        <path d="M0 0h24v24H0z" fill="none"></path>
+      </svg>
+      <button mat-icon-button style="color: #888b91; left: -480px; margin-top: 0px; position: absolute;" (click)="glob.showUsercontacts=false"> <mat-icon>close</mat-icon> </button>  
+      <span style="font-size: 25px; font-weight: bold; color: #344d7e; left: -410px; position: absolute;">Contacts</span>
+    </div>
+            
+    
+
+
+    <mat-accordion *ngIf="glob.globContacts.length > 0" style="width: 100%; height: 90%; margin-top: 50px;">
+        <mat-expansion-panel *ngFor="let item of glob.globContacts">
+            <mat-expansion-panel-header>
+              
+              <mat-panel-title>
+
+                <div class="rounded-circle cls-img-contacts-bkg">  
+                  <img src="{{glob.pathImgProfile + item.contact_profile_image}}"
+                        class="rounded-circle cls-img-profile"
+                        *ngIf="item.contact_profile_image"/>
+                    
+                  <span class="cls-img-profile-null"
+                    style="background-color: {{ item.contact_profile_color ? item.contact_profile_color : '' }};"
+                    *ngIf="!item.contact_profile_image" >
+                    {{ item.contact_name_given.slice(0,1) + item.contact_name_family.slice(0,1) }}
+                  </span>
+                    
+                </div>
+
+              </mat-panel-title>
+
+              <mat-panel-description>
+                  <p> {{ item.contact_name_given + ' ' + item.contact_name_family }} </p>
+                  <span class="spacer"></span>
+                  <p [ngStyle]="{'color': setStatusColor(item.status) }"> {{ item.status }} </p>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+        
+
+
+            <div class="cls-caller-btns">
+
+            
+              <button mat-icon-button [matMenuTriggerFor]="menu" style="color: #23BE28;"
+                      #tooltip="matTooltip"
+                      matTooltip="Make a Call"
+                      matTooltipPosition="above"
+                      matTooltipHideDelay="100"  
+              >
+                <mat-icon>phone</mat-icon>
+              </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item [matMenuTriggerFor]="optCallMenu" *ngIf="item.extension">Ext.<strong> {{ item.extension }}</strong></button>
+                    <mat-menu #optCallMenu="matMenu">
+                      <button mat-menu-item [disabled]="glob.showOutgoingcall || glob.onCall" (click)="makeCall(item.extension, 'audio')">Audio Call</button>
+                      <button mat-menu-item [disabled]="glob.showOutgoingcall || glob.onCall" (click)="makeCall(item.extension, 'video')">Video Chat</button>
+                    </mat-menu>
+
+                  <button mat-menu-item [matMenuTriggerFor]="transferMenu" *ngIf="glob.onCall">Transfer</button>
+                    <mat-menu #transferMenu="matMenu">
+                      <button mat-menu-item (click)="transferCall(item.extension, 'true')">Attended</button>
+                      <button mat-menu-item (click)="transferCall(item.extension, 'false')">Blind</button>
+                    </mat-menu>
+
+                  <mat-divider></mat-divider>
+                  <button mat-menu-item *ngFor="let phone of item.phones" (click)="makeCall(phone.phone_number, 'audio')"> {{ phone.phone_number  }} </button>
+                  <mat-divider></mat-divider>
+                  <button mat-menu-item>Add number</button>
+                </mat-menu>
+
+                
+              
+            
+              <button mat-icon-button style="color: #a59264;"
+                      #tooltip="matTooltip"
+                      matTooltip="Send a Message"
+                      matTooltipPosition="above"
+                      matTooltipHideDelay="100"  
+              >
+                <mat-icon>message</mat-icon>
+              </button>
+
+              <button mat-icon-button style="color: rgb(121, 132, 136);"
+                      #tooltip="matTooltip"
+                      matTooltip="Send a Fax"
+                      matTooltipPosition="above"
+                      matTooltipHideDelay="100"  
+              >
+                <mat-icon>receipt</mat-icon>
+              </button>
+
+              <button mat-icon-button style="color: #b8860b;"
+                      #tooltip="matTooltip"
+                      matTooltip="Settings"
+                      matTooltipPosition="above"
+                      matTooltipHideDelay="100"  
+              >
+                <mat-icon>face</mat-icon>
+              </button>
+
+            </div>
+          </mat-expansion-panel>
+        
+    </mat-accordion>
+
+
+
+
+
+
+
+
+
+
+
+  
+        
+  </div>

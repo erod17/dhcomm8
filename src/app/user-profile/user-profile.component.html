@@ -1,0 +1,25 @@
+<div *ngIf="glob.userIn">
+  <button class="rounded-circle cls-img-profile-bkg" mat-button [matMenuTriggerFor]="userMenu">  
+    <img src="{{ glob.pathImgProfile + glob.globUser['profile_image']}}"
+          class="rounded-circle cls-img-profile"
+          *ngIf="glob.globUser['profile_image']"/>
+      
+    <span class="cls-img-profile-null"
+      style="background-color: {{ glob.globUser['profile_color'] ? glob.globUser['profile_color'] : '' }};"
+      *ngIf="!glob.globUser['profile_image']" >
+      {{ glob.globUser['contact_name_given'].slice(0,1) + glob.globUser['contact_name_family'].slice(0,1) }}
+    </span>
+  </button>
+  <!-- <br>
+  <strong style="font-size: 25px; color: black;">{{ glob.globUser['contact_name_given'] + ' ' + glob.globUser['contact_name_family'] }}</strong>
+  <br>
+  <span>{{ glob.globUser['email_address'] }}</span> -->
+  <mat-menu #userMenu="matMenu" xPosition="before">
+    <button mat-menu-item><mat-icon>person_outline</mat-icon> Available</button>
+    <button mat-menu-item><mat-icon>link_off</mat-icon> Away</button>
+    <button mat-menu-item><mat-icon>remove_circle_outline</mat-icon> Do not disturb</button>
+    <button mat-menu-item><mat-icon>phone_in_talk</mat-icon> Busy on call</button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout()"><mat-icon>exit_to_app</mat-icon> Log out</button>
+  </mat-menu>
+</div>

@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url('https://fonts.googleapis.com/css?family=Monda&display=swap');
+
+*{
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Monda', sans-serif, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav,
+.pagination,
+.carousel,
+.panel-title a,
+.uib-accordion-heading,
+.uib-accordion-group {
+  cursor: pointer;
+}
+
+button:focus, 
+.mat-button:focus, 
+.mat-menu-item:focus, 
+.mat-fab:focus, 
+.mat-mini-fab:focus,
+.mat-stroked-button:focus,
+.mat-icon-button:focus {
+  outline: none;
+}
+

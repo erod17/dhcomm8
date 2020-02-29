@@ -1,0 +1,55 @@
+<div class="oncall-box" cdkDrag *ngFor="let item of glob.onCallInfo">
+  <!-- <div class="oncall-box" cdkDrag>   -->
+    <div class="oncall-handle" cdkDragHandle>
+      <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
+        <path d="M0 0h24v24H0z" fill="none"></path>
+      </svg>
+      <span style="font-size: 20px; font-weight: bold; color: #268326; left: -290px; position: absolute;">
+        On a call with...
+        <span [hidden]="!glob.globHoldCall" style="color: #ff4500;">
+          / On hold call
+        </span>
+      </span>
+    </div>
+ 
+    <div class="cls-info-on-call" [hidden]="glob.showDialpadOnCall">
+
+      <div class="rounded-circle cls-img-outg-call">  
+        <img src="{{glob.pathImgProfile + item.contact_profile_image}}"
+              class="rounded-circle cls-img-profile"
+              *ngIf="item.contact_profile_image"/>
+          
+        <span class="cls-img-profile-null"
+          style="background-color: {{ item.contact_profile_color ? item.contact_profile_color : '' }};"
+          *ngIf="!item.contact_profile_image" >
+          {{ item.contact_name_given.slice(0,1) + item.contact_name_family.slice(0,1) }}
+        </span>
+      </div>
+    
+      <div class="cls-outg-call-name">
+        <strong>{{ item.contact_name_full }}</strong>
+      </div>
+
+      <div class="cls-outg-call-number">
+        <strong>{{ glob.outgoingNumber }}</strong>
+      </div>
+      
+      <div class="cls-outg-call-number">
+        <strong>{{ glob.outgoingNumber }}</strong>
+      </div>
+      
+    </div>
+
+
+    <div class="cls-dialpad-on-call" [hidden]="!glob.showDialpadOnCall">
+      <app-dtmf></app-dtmf>
+    </div>
+
+    <div class="cls-cmd-btns">
+      <app-caller-buttons></app-caller-buttons>
+    </div>
+
+  
+        
+</div>

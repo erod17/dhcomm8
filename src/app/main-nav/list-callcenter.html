@@ -1,0 +1,30 @@
+
+<mat-toolbar color="primary">
+    <span>Call Center Queues</span>
+  </mat-toolbar>
+
+
+
+
+<div style="height: 300px; overflow-y: scroll;">
+
+  <mat-nav-list *ngFor="let item of dataSource">
+      <a routerLink="/call-center/{{ item.call_center_queue_uuid }}" mat-list-item (click)="openLink($event)">
+        <div style="width: 50%;">
+          <span mat-line><strong>{{ item.queue_name }}</strong></span>
+          <span mat-line>Ext. {{ item.queue_extension }}</span>
+        </div>
+        <div style="width: 25%;">
+          <span mat-line><strong>Agents</strong></span>
+          <span mat-line><strong style="color: green;">{{ item.total_agents_availables + ' Avail of '}} </strong>  <strong style="color: blue;">[ {{ item.total_agents }} ]</strong></span>
+        </div>
+        <div style="width: 25%;">
+            <span mat-line><strong>Active Calls</strong></span>
+            <span mat-line>105</span>
+          </div>
+        
+      </a>
+    
+  </mat-nav-list>
+
+</div>
